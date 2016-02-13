@@ -21,10 +21,9 @@
                        [26 7] [26 8] [36 4] [36 5] [37 4] [37 5]}})
 
 (defn neighbours [[x y]]
-  (for [dx [-1 0 1] dy [-1 0 1] :when (not= [0 0] [dx dy])]
+  (for [dx [-1 0 1] dy (if (= 0 dx) [-1 1] [-1 0 1])]
     [(+ dx x) (+ dy y)]))
 
 (defn next-generation [cells]
   (set (for [[loc n] (frequencies (mapcat neighbours cells))
-             :when (or (= n 3) (and (= n 2) (cells loc)))]
-         loc)))
+             :when (or (= n 3) (and (= n 2) (cells loc)))] loc)))
