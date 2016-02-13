@@ -8,17 +8,17 @@
   (q/stroke 0)
   (q/stroke-weight 2)
   (q/fill 255)
-  {:cells (game/cell-patterns :infinite-growth)
-   :camera -200})
+  {:cam -170
+   :cells (game/cell-patterns :infinite-growth)})
 
 (defn next-state [state]
   (-> state (update :cells game/next-generation)
-            (update :camera #(+ 0.75 %))))
+            (update :cam + 0.75)))
 
-(defn draw! [{cells :cells c :camera}]
+(defn draw! [{:keys [cam cells]}]
   (q/background 0)
   (doseq [[x y] cells :let [d 10]]
-    (q/rect (+ c (* x d)) (+ c (* y d)) d d)))
+    (q/rect (+ cam (* x d)) (+ cam (* y d)) d d)))
 
 (q/defsketch animation
              :setup setup!
