@@ -6,18 +6,18 @@
 (def initial-cells (game/cell-patterns :infinite-growth))
 
 (defn setup-grid! []
-  (q/frame-rate 10)
+  (q/frame-rate 12)
   (q/stroke 0)
   (q/stroke-weight 2)
   (q/fill 255)
   {:cells initial-cells
-   :camera [-130 -130]})
+   :camera [-200 -200]})
 
 (defn update-state [state]
   (-> state
       (update :cells game/next-generation)
-      (update-in [:camera 0] #(+ 0.8 %))
-      (update-in [:camera 1] #(+ 0.8 %))))
+      (update-in [:camera 0] #(+ 0.75 %))
+      (update-in [:camera 1] #(+ 0.75 %))))
 
 (defn draw-frame! [{:keys [cells camera]}]
   (q/background 0)
@@ -35,5 +35,5 @@
              :draw draw-frame!
              :update update-state
              :title "Game of Life"
-             :size [500 500]
+             :size [250 250]
              :middleware [fun-mode])
